@@ -16,26 +16,26 @@ const loadCategory = async () => {
 const displayCategory = (categories) => {
   categories.forEach((category) => {
     categoryContainer.innerHTML += `
-    <button onclick="loadPlantByCategory(${category.id})" class="btn w-full bg-transparent mb-1 border-none justify-start font-normal hover:bg-[#15803D] hover:text-white category-btn">${category.category_name}</button>
+    <button onclick="loadPlantByCategory(${category.id})" id="category-${category.id}" class="btn w-full bg-transparent mb-1 border-none justify-start font-normal hover:bg-[#15803D] hover:text-white category-btn">${category.category_name}</button>
     `;
   });
 };
 
 const loadPlantByCategory = async (categoryId) => {
-    
-    
-    const url = `https://openapi.programming-hero.com/api/category/${categoryId}`;
+  const url = `https://openapi.programming-hero.com/api/category/${categoryId}`;
 
-    const response = await fetch(url);
-    const data = await response.json();
-    displayPlantsByCategory(data.plants);
-    
-}
+  const response = await fetch(url);
+  const data = await response.json();
+  displayPlantsByCategory(data.plants);
+
+  removeActiveClass();
+  document.getElementById(`category-${categoryId}`).classList.add("active");
+};
 
 const displayPlantsByCategory = (plantsByCategory) => {
-    cardContainer.innerHTML = '';
-    plantsByCategory.forEach(plant => {
-        cardContainer.innerHTML += `
+  cardContainer.innerHTML = "";
+  plantsByCategory.forEach((plant) => {
+    cardContainer.innerHTML += `
         <div class="rounded-xl bg-white overflow-hidden">
                         <div class="rounded-t-xl">
                             <img class="h-70 w-full object-cover" src="${plant.image}" alt="">
@@ -52,13 +52,13 @@ const displayPlantsByCategory = (plantsByCategory) => {
                                 cart</button>
                         </div>
                     </div>
-        `
-        
-    })
-    
-}
+        `;
+  });
+};
 
 const LoadAllTree = async () => {
+  removeActiveClass();
+  document.getElementById("all-tree").classList.add("active");
   const url = "https://openapi.programming-hero.com/api/plants";
 
   try {
@@ -71,9 +71,9 @@ const LoadAllTree = async () => {
 };
 
 const displayAllPlants = (Allplants) => {
-    cardContainer.innerHTML = '';
-    Allplants.forEach(plant => {
-        cardContainer.innerHTML += `
+  cardContainer.innerHTML = "";
+  Allplants.forEach((plant) => {
+    cardContainer.innerHTML += `
         <div class="rounded-xl bg-white overflow-hidden">
                         <div class="rounded-t-xl">
                             <img class="h-70 w-full object-cover" src="${plant.image}" alt="">
@@ -90,9 +90,15 @@ const displayAllPlants = (Allplants) => {
                                 cart</button>
                         </div>
                     </div>
-        `
-        
-    })
+        `;
+  });
+};
+
+const removeActiveClass = () => {
+  const allCategoryBtn = document.querySelectorAll(".category-btn");
+  allCategoryBtn.forEach((btn) => {
+    btn.classList.remove("active");
+  });
 };
 
 loadCategory();
