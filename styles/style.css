@@ -1,0 +1,7 @@
+*{
+    font-family: "Inter";
+}
+.active{
+    color: white;
+    background-color: #15803D;
+}
