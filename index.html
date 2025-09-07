@@ -97,20 +97,34 @@
                 <!-- category container -->
                 <div id="category-container" class="md:col-span-2">
 
-                    <button onclick="LoadAllTree()" id="all-tree" class="btn w-full bg-transparent mb-1 border-none justify-start font-normal hover:bg-[#15803D] hover:text-white category-btn">All Trees</button>
+                    <button onclick="LoadAllTree()" id="all-tree"
+                        class="btn w-full bg-transparent mb-1 border-none justify-start font-normal hover:bg-[#15803D] hover:text-white category-btn">All
+                        Trees</button>
 
                 </div>
 
                 <!-- card container -->
                 <div id="card-container" class="md:col-span-8 grid grid-cols-3 gap-5">
-                    
-                    
-                    
+
+
+
                 </div>
 
 
                 <!-- add to cart container -->
-                <div class="border-2 md:col-span-2">Your Cart</div>
+                <div class="md:col-span-2 bg-white rounded-xl p-3">
+                    <div>
+                        <p class="font-bold text-xl mb-2">Your Cart</p>
+                        <!-- cart card -->
+                        <div id="cart-container">
+
+                        </div>
+                        <div id="total-amount" class="flex justify-between border-t-2 border-gray-200 pt-2 hidden">
+                            <p>Total:</p>
+                            <p>৳<span>0</span></p>
+                        </div>
+                    </div>
+                </div>
             </section>
         </section>
     </main>
@@ -121,7 +135,7 @@
     </footer>
 
     <!-- scripts -->
-     <script src="./scripts/index.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

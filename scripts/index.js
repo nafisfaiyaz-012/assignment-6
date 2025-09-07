@@ -1,5 +1,59 @@
+const arrForCartData = [];
 const categoryContainer = document.getElementById("category-container");
 const cardContainer = document.getElementById("card-container");
+const addToCartContainer = document.getElementById("cart-container");
+
+cardContainer.addEventListener("click", (event) => {
+  if (event.target.localName === "button") {
+    const title = event.target.parentNode.children[0].innerText;
+    const plantPrice = parseInt(
+      event.target.parentNode.children[2].children[1].children[0].innerText
+    );
+
+    addToCartContainer.innerHTML += `
+    <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
+        <div>
+            <p class="font-semibold">${title}</p>
+            <p class="text-gray-400">৳${plantPrice} x 1</p>
+        </div>
+        <i class="fa-solid fa-xmark text-gray-400"></i>
+    </div>
+    `;
+    const totalAmount = document.getElementById("total-amount");
+    totalAmount.classList.remove("hidden");
+    let totalAmountValue = parseInt(
+      totalAmount.children[1].children[0].innerText
+    );
+    totalAmountValue = totalAmountValue + plantPrice;
+    totalAmount.children[1].children[0].innerText = totalAmountValue;
+    console.log(totalAmountValue);
+
+    /* arrForCartData.push({
+            title: title,
+            price: plantPrice
+        }) ; */
+  }
+
+  /* arrForCartData.forEach(cartData => {
+        console.log(cartData);
+        
+    }) */
+
+  /* addToCartContainer.innerHTML += `
+    <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
+        <div>
+            <p class="font-semibold">Mango Tree</p>
+            <p class="text-gray-400">৳500 x 1</p>
+        </div>
+        <i class="fa-solid fa-xmark text-gray-400"></i>
+    </div>
+
+    <div class="flex justify-between border-t-2 border-gray-200 pt-2">
+        <p>Total:</p>
+        <p>৳1000</p>
+    </div>
+    ` */
+});
 
 const loadCategory = async () => {
   const url = "https://openapi.programming-hero.com/api/categories";
@@ -46,7 +100,7 @@ const displayPlantsByCategory = (plantsByCategory) => {
                             <p>${plant.description}</p>
                             <div class="flex justify-between">
                                 <p class="px-3 rounded-2xl bg-[#DCFCE7] text-[#15803D]">${plant.category}</p>
-                                <p>ট<span>${plant.price}</span></p>
+                                <p>৳<span>${plant.price}</span></p>
                             </div>
                             <button class="btn w-full bg-[#15803D] rounded-3xl text-white font-normal">Add To
                                 cart</button>
@@ -70,9 +124,9 @@ const LoadAllTree = async () => {
   }
 };
 
-const displayAllPlants = (Allplants) => {
+const displayAllPlants = (allPlants) => {
   cardContainer.innerHTML = "";
-  Allplants.forEach((plant) => {
+  allPlants.forEach((plant) => {
     cardContainer.innerHTML += `
         <div class="rounded-xl bg-white overflow-hidden">
                         <div class="rounded-t-xl">
@@ -84,7 +138,7 @@ const displayAllPlants = (Allplants) => {
                             <p>${plant.description}</p>
                             <div class="flex justify-between">
                                 <p class="px-3 rounded-2xl bg-[#DCFCE7] text-[#15803D]">${plant.category}</p>
-                                <p>ট<span>${plant.price}</span></p>
+                                <p>৳<span>${plant.price}</span></p>
                             </div>
                             <button class="btn w-full bg-[#15803D] rounded-3xl text-white font-normal">Add To
                                 cart</button>
