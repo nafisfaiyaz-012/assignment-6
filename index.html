@@ -92,7 +92,7 @@
         <!-- card container section -->
         <section>
             <!-- section title -->
-            <h1 class="text-center pt-14 pb-5 font-bold text-lg ">Choose Your Trees</h1>
+            <h1 class="text-center pt-5 md:pt-14 md:pb-5 font-bold text-lg ">Choose Your Trees</h1>
 
             <section class="w-11/12 mx-auto grid md:grid-cols-12 gap-4 mt-3">
                 <!-- category container -->
@@ -130,7 +130,7 @@
         </section>
 
         <!-- about the campaign section -->
-        <section class="mt-14">
+        <section class="mt-5 md:mt-14">
             <div class="md:w-7/12 mx-auto">
                 <p class="text-center text-xl font-semibold pt-3 text-wrap">About the Campaign</p>
                 <div class="flex flex-col md:flex-row justify-between items-center gap-10 p-5 mt-5 text-[#1f2937]">
@@ -154,12 +154,12 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- our impact section -->
-        <section class=" mt-14 bg-[#cff0dc]">
+        <section class="md:mt-14 bg-[#cff0dc]">
             <div class="w-11/12 mx-auto space-y-7 py-12">
                 <p class="text-center text-xl font-semibold text-wrap">Our Impact</p>
-                <div class="grid md:grid-cols-3 gap-6 items-center mx-auto p-5">
+                <div class="grid md:grid-cols-3 gap-6 items-center mx-auto md:px-20">
                     <div class="bg-white px-10 py-12 rounded-xl">
                         <h3 class="text-center text-[#15803D] text-xl font-semibold">500K+</h3>
                         <p class="text-center">Trees Planted</p>
@@ -175,12 +175,42 @@
                 </div>
             </div>
         </section>
+
+        <!-- plant a tree form section -->
+        <section class="bg-[#166534]">
+            <div class="md:w-4/12 mx-auto py-14 space-y-6">
+                <p class="text-center text-white text-xl font-semibold">Plant a Tree Today</p>
+                <div class="p-4 md:p-0">
+                    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box p-4 mx-auto bg-[#15803d]">
+
+                        <input type="text" class="input w-full focus:outline-none" placeholder="Your Name" />
+
+                        <input type="text" class="input w-full focus:outline-none" placeholder="Your Email Address" />
+
+                        <select
+                            class="select w-full border-none focus:outline-none focus:border-transparent focus:ring-0">
+                            <option disabled selected>Number of Trees</option>
+                            <option>1 Tree - $5</option>
+                            <option>5 Tree - $25</option>
+                            <option>10 Tree - $50</option>
+                        </select>
+
+                        <button
+                            class="btn btn-sm bg-[#FACC15] border-none rounded-3xl text-[#15803D] px-5 shadow-none hover:bg-[#fad015] font-semibold text-sm">Donate
+                            Now</button>
+
+                    </fieldset>
+                </div>
+            </div>
+        </section>
     </main>
 
 
     <!-- footer section -->
-    <footer>
-
+    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4 bg-[#14532D]">
+        <aside>
+            <p class="text-white">© 2025 Green Earth. All Rights Reserved.</p>
+        </aside>
     </footer>
 
     <!-- scripts -->
