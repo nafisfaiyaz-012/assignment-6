@@ -209,15 +209,15 @@ const loadModalDataByPlantId = async (plantId) => {
 };
 
 displayPlantsDataOnModal = (plant) => {
-  const plantModal = document.getElementById('my_modal');
-  plantModal.innerHTML = '';
+  const plantModal = document.getElementById("my_modal");
+  plantModal.innerHTML = "";
   plantModal.innerHTML = `
   <div class="modal-box">
             <div class="space-y-3">
-                <h1 class="text-lg font-bold">${plant.name}</h1>
+                <h1 class="text-xl font-bold">${plant.name}</h1>
                 <img src="${plant.image}" class="h-60 w-full object-cover rounded-xl" alt="">
                 <p><span class="text-lg font-semibold">Category:</span> ${plant.category}</p>
-                <p><span class="text-lg font-semibold">Price:</span> ${plant.price}</p>
+                <p><span class="text-lg font-semibold">Price:</span> ৳${plant.price}</p>
                 <p><span class="text-lg font-semibold">Description:</span> ${plant.description}</p>
             </div>
 
@@ -228,7 +228,7 @@ displayPlantsDataOnModal = (plant) => {
                 </form>
             </div>
         </div>
-  `
+  `;
   plantModal.showModal();
   console.log(plant);
 };
