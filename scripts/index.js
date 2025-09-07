@@ -195,10 +195,6 @@ const handleSpinner = (status) => {
 const loadModalDataByPlantId = async (plantId) => {
   const url = `https://openapi.programming-hero.com/api/plant/${plantId}`;
 
-  /* fetch(url)
-  .then(response => response.json())
-  .then(data => console.log(data)
-  ) */
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -230,7 +226,6 @@ displayPlantsDataOnModal = (plant) => {
         </div>
   `;
   plantModal.showModal();
-  console.log(plant);
 };
 
 loadCategory();
