@@ -1,7 +1,46 @@
-const arrForCartData = [];
+let arrForCartData = [];
 const categoryContainer = document.getElementById("category-container");
 const cardContainer = document.getElementById("card-container");
-const addToCartContainer = document.getElementById("cart-container");
+const addToCartContainer = document.getElementById("cart-item-container");
+const cartContainer = document.getElementById("cart-container");
+const totalAmount = document.getElementById("total-amount");
+
+cartContainer.addEventListener("click", (event) => {
+  if (event.target.localName === "button") {
+    let deletedItemTitle =
+      event.target.parentNode.children[0].children[0].innerText;
+    const deletedItemPrice = parseInt(
+      event.target.parentNode.children[0].children[1].children[0].innerText
+    );
+
+    let newArrayForCartItemsData = arrForCartData.filter((element) => {
+      return element.title !== deletedItemTitle;
+    });
+    arrForCartData = newArrayForCartItemsData;
+
+    addToCartContainer.innerHTML = "";
+    arrForCartData.forEach((item) => {
+      addToCartContainer.innerHTML += `
+        <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
+        <div>
+            <p class="font-semibold">${item.title}</p>
+            <p class="text-gray-400">৳<span>${item.price}</span> x 1</p>
+        </div>
+        <button class="text-gray-400 cursor-pointer">X</button>
+    </div>
+        `;
+    });
+    let totalAmountValue = parseInt(
+      totalAmount.children[1].children[0].innerText
+    );
+    totalAmountValue = totalAmountValue - deletedItemPrice;
+    totalAmount.children[1].children[0].innerText = totalAmountValue;
+
+    if (arrForCartData.length === 0) {
+      totalAmount.classList.add("hidden");
+    }
+  }
+});
 
 cardContainer.addEventListener("click", (event) => {
   if (event.target.localName === "button") {
@@ -14,45 +53,24 @@ cardContainer.addEventListener("click", (event) => {
     <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
         <div>
             <p class="font-semibold">${title}</p>
-            <p class="text-gray-400">৳${plantPrice} x 1</p>
+            <p class="text-gray-400">৳<span>${plantPrice}</span> x 1</p>
         </div>
-        <i class="fa-solid fa-xmark text-gray-400"></i>
+        <button class="text-gray-400 cursor-pointer">X</button>
     </div>
     `;
-    const totalAmount = document.getElementById("total-amount");
+
     totalAmount.classList.remove("hidden");
     let totalAmountValue = parseInt(
       totalAmount.children[1].children[0].innerText
     );
     totalAmountValue = totalAmountValue + plantPrice;
     totalAmount.children[1].children[0].innerText = totalAmountValue;
-    console.log(totalAmountValue);
 
-    /* arrForCartData.push({
-            title: title,
-            price: plantPrice
-        }) ; */
+    arrForCartData.push({
+      title: title,
+      price: plantPrice,
+    });
   }
-
-  /* arrForCartData.forEach(cartData => {
-        console.log(cartData);
-        
-    }) */
-
-  /* addToCartContainer.innerHTML += `
-    <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
-        <div>
-            <p class="font-semibold">Mango Tree</p>
-            <p class="text-gray-400">৳500 x 1</p>
-        </div>
-        <i class="fa-solid fa-xmark text-gray-400"></i>
-    </div>
-
-    <div class="flex justify-between border-t-2 border-gray-200 pt-2">
-        <p>Total:</p>
-        <p>৳1000</p>
-    </div>
-    ` */
 });
 
 const loadCategory = async () => {
