@@ -12,7 +12,7 @@ cartContainer.addEventListener("click", (event) => {
     const deletedItemPrice = parseInt(
       event.target.parentNode.children[0].children[1].children[0].innerText
     );
-
+    // alert(`${deletedItemTitle} has been removed from the cart.`);
     let newArrayForCartItemsData = arrForCartData.filter((element) => {
       return element.title !== deletedItemTitle;
     });
@@ -49,7 +49,7 @@ cardContainer.addEventListener("click", (event) => {
     const plantPrice = parseInt(
       event.target.parentNode.children[2].children[1].children[0].innerText
     );
-
+    alert(`${title} has been added to the cart.`);
     addToCartContainer.innerHTML += `
     <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
         <div>
@@ -115,14 +115,14 @@ const loadPlantByCategory = async (categoryId) => {
 const displayPlantsByCategory = (plantsByCategory) => {
   plantsByCategory.forEach((plant) => {
     cardContainer.innerHTML += `
-        <div id="${plant.id}" class="rounded-xl bg-white overflow-hidden">
+        <div id="${plant.id}" class="rounded-xl bg-white overflow-hidden shadow-xl/30">
                         <div class="rounded-t-xl">
                             <img class="h-70 w-full object-cover" src="${plant.image}" alt="">
                         </div>
                         <div class="p-3 space-y-3">
 
                             <h1 class="font-semibold cursor-pointer hover:border-b-2  w-fit">${plant.name}</h1>
-                            <p>${plant.description}</p>
+                            <p class="line-clamp-3">${plant.description}</p>
                             <div class="flex justify-between">
                                 <p class="px-3 rounded-2xl bg-[#DCFCE7] text-[#15803D]">${plant.category}</p>
                                 <p>৳<span>${plant.price}</span></p>
@@ -156,14 +156,14 @@ const displayAllPlants = (allPlants) => {
   handleSpinner(true);
   allPlants.forEach((plant) => {
     cardContainer.innerHTML += `
-        <div id="${plant.id}" class="rounded-xl bg-white overflow-hidden">
+        <div id="${plant.id}" class="rounded-xl bg-white overflow-hidden shadow-xl/30">
                         <div class="rounded-t-xl">
                             <img class="h-70 w-full object-cover" src="${plant.image}" alt="">
                         </div>
                         <div class="p-3 space-y-3">
 
                             <h1 class="font-semibold cursor-pointer hover:border-b-2 w-fit">${plant.name}</h1>
-                            <p>${plant.description}</p>
+                            <p class="line-clamp-3">${plant.description}</p>
                             <div class="flex justify-between">
                                 <p class="px-3 rounded-2xl bg-[#DCFCE7] text-[#15803D]">${plant.category}</p>
                                 <p>৳<span>${plant.price}</span></p>
