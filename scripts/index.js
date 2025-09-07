@@ -43,6 +43,7 @@ cartContainer.addEventListener("click", (event) => {
 });
 
 cardContainer.addEventListener("click", (event) => {
+  //event condition for button
   if (event.target.localName === "button") {
     const title = event.target.parentNode.children[0].innerText;
     const plantPrice = parseInt(
@@ -70,6 +71,11 @@ cardContainer.addEventListener("click", (event) => {
       title: title,
       price: plantPrice,
     });
+  }
+
+  //event condition for h1 tag for title
+  if (event.target.localName === "h1") {
+    loadModalDataByPlantId(event.target.parentNode.parentNode.id);
   }
 });
 
@@ -109,13 +115,13 @@ const loadPlantByCategory = async (categoryId) => {
 const displayPlantsByCategory = (plantsByCategory) => {
   plantsByCategory.forEach((plant) => {
     cardContainer.innerHTML += `
-        <div class="rounded-xl bg-white overflow-hidden">
+        <div id="${plant.id}" class="rounded-xl bg-white overflow-hidden">
                         <div class="rounded-t-xl">
                             <img class="h-70 w-full object-cover" src="${plant.image}" alt="">
                         </div>
                         <div class="p-3 space-y-3">
 
-                            <h1 class="font-semibold">${plant.name}</h1>
+                            <h1 class="font-semibold cursor-pointer hover:border-b-2  w-fit">${plant.name}</h1>
                             <p>${plant.description}</p>
                             <div class="flex justify-between">
                                 <p class="px-3 rounded-2xl bg-[#DCFCE7] text-[#15803D]">${plant.category}</p>
@@ -150,13 +156,13 @@ const displayAllPlants = (allPlants) => {
   handleSpinner(true);
   allPlants.forEach((plant) => {
     cardContainer.innerHTML += `
-        <div class="rounded-xl bg-white overflow-hidden">
+        <div id="${plant.id}" class="rounded-xl bg-white overflow-hidden">
                         <div class="rounded-t-xl">
                             <img class="h-70 w-full object-cover" src="${plant.image}" alt="">
                         </div>
                         <div class="p-3 space-y-3">
 
-                            <h1 class="font-semibold">${plant.name}</h1>
+                            <h1 class="font-semibold cursor-pointer hover:border-b-2 w-fit">${plant.name}</h1>
                             <p>${plant.description}</p>
                             <div class="flex justify-between">
                                 <p class="px-3 rounded-2xl bg-[#DCFCE7] text-[#15803D]">${plant.category}</p>
@@ -185,5 +191,47 @@ const handleSpinner = (status) => {
     spinner.classList.add("hidden");
   }
 };
+
+const loadModalDataByPlantId = async (plantId) => {
+  const url = `https://openapi.programming-hero.com/api/plant/${plantId}`;
+
+  /* fetch(url)
+  .then(response => response.json())
+  .then(data => console.log(data)
+  ) */
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    displayPlantsDataOnModal(data.plants);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+displayPlantsDataOnModal = (plant) => {
+  const plantModal = document.getElementById('my_modal');
+  plantModal.innerHTML = '';
+  plantModal.innerHTML = `
+  <div class="modal-box">
+            <div class="space-y-3">
+                <h1 class="text-lg font-bold">${plant.name}</h1>
+                <img src="${plant.image}" class="h-60 w-full object-cover rounded-xl" alt="">
+                <p><span class="text-lg font-semibold">Category:</span> ${plant.category}</p>
+                <p><span class="text-lg font-semibold">Price:</span> ${plant.price}</p>
+                <p><span class="text-lg font-semibold">Description:</span> ${plant.description}</p>
+            </div>
+
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+  `
+  plantModal.showModal();
+  console.log(plant);
+};
+
 loadCategory();
 LoadAllTree();
