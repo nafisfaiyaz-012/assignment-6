@@ -5,36 +5,41 @@ const addToCartContainer = document.getElementById("cart-item-container");
 const cartContainer = document.getElementById("cart-container");
 const totalAmount = document.getElementById("total-amount");
 const spinner = document.getElementById("spinner");
+
 cartContainer.addEventListener("click", (event) => {
   if (event.target.localName === "button") {
     let deletedItemTitle =
       event.target.parentNode.children[0].children[0].innerText;
-    const deletedItemPrice = parseInt(
-      event.target.parentNode.children[0].children[1].children[0].innerText
-    );
+
     // alert(`${deletedItemTitle} has been removed from the cart.`);
     let newArrayForCartItemsData = arrForCartData.filter((element) => {
       return element.title !== deletedItemTitle;
     });
     arrForCartData = newArrayForCartItemsData;
+    console.log(arrForCartData);
 
     addToCartContainer.innerHTML = "";
-    arrForCartData.forEach((item) => {
-      addToCartContainer.innerHTML += `
-        <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
-        <div>
-            <p class="font-semibold">${item.title}</p>
-            <p class="text-gray-400">৳<span>${item.price}</span> x 1</p>
-        </div>
-        <button class="text-gray-400 cursor-pointer">X</button>
-    </div>
-        `;
-    });
     let totalAmountValue = parseInt(
       totalAmount.children[1].children[0].innerText
     );
-    totalAmountValue = totalAmountValue - deletedItemPrice;
-    totalAmount.children[1].children[0].innerText = totalAmountValue;
+    totalAmountValue = 0;
+    arrForCartData.forEach((item) => {
+      console.log(item);
+
+      addToCartContainer.innerHTML += `
+        <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
+          <div>
+              <p class="font-semibold">${item.title}</p>
+              <p class="text-gray-400">৳<span>${item.price}</span> x ${item.quantity}</p>
+          </div>
+          <button class="text-gray-400 cursor-pointer">X</button>
+        </div>
+        `;
+
+      let itemPrice = item.price * item.quantity;
+      totalAmountValue = totalAmountValue + itemPrice;
+      totalAmount.children[1].children[0].innerText = totalAmountValue;
+    });
 
     if (arrForCartData.length === 0) {
       totalAmount.classList.add("hidden");
@@ -43,37 +48,50 @@ cartContainer.addEventListener("click", (event) => {
 });
 
 cardContainer.addEventListener("click", (event) => {
-  //event condition for button
+  //event for add to cart button
   if (event.target.localName === "button") {
-    const title = event.target.parentNode.children[0].innerText;
-    const plantPrice = parseInt(
-      event.target.parentNode.children[2].children[1].children[0].innerText
-    );
-    alert(`${title} has been added to the cart.`);
-    addToCartContainer.innerHTML += `
-    <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
-        <div>
-            <p class="font-semibold">${title}</p>
-            <p class="text-gray-400">৳<span>${plantPrice}</span> x 1</p>
-        </div>
-        <button class="text-gray-400 cursor-pointer">X</button>
-    </div>
-    `;
+    const clickedTitle = event.target.parentNode.children[0].innerText;
+    const clickedPrice =
+      event.target.parentNode.children[2].children[1].children[0].innerText;
+    const clickedQuantity = 1;
 
-    totalAmount.classList.remove("hidden");
+    const findingRepeatedItem = arrForCartData.find(
+      (element) => element.title === clickedTitle
+    );
+    if (findingRepeatedItem) {
+      findingRepeatedItem.quantity += 1;
+    } else {
+      arrForCartData.push({
+        title: clickedTitle,
+        price: clickedPrice,
+        quantity: clickedQuantity,
+      });
+    }
+
+    addToCartContainer.innerHTML = "";
     let totalAmountValue = parseInt(
       totalAmount.children[1].children[0].innerText
     );
-    totalAmountValue = totalAmountValue + plantPrice;
-    totalAmount.children[1].children[0].innerText = totalAmountValue;
+    totalAmountValue = 0;
 
-    arrForCartData.push({
-      title: title,
-      price: plantPrice,
+    arrForCartData.forEach((element) => {
+      totalAmount.classList.remove("hidden");
+      addToCartContainer.innerHTML += `
+      <div class="p-3 rounded-xl bg-[#f0fdf4] mb-2 space-y-2 flex justify-between items-center">
+        <div>
+            <p class="font-semibold">${element.title}</p>
+            <p class="text-gray-400">৳<span>${element.price}</span> x ${element.quantity}</p>
+        </div>
+        <button class="text-gray-400 cursor-pointer">X</button>
+      </div>
+      `;
+
+      totalAmountValue = totalAmountValue + element.price * element.quantity;
+      totalAmount.children[1].children[0].innerText = totalAmountValue;
     });
   }
 
-  //event condition for h1 tag for title
+  //event for clicking on title for modal
   if (event.target.localName === "h1") {
     loadModalDataByPlantId(event.target.parentNode.parentNode.id);
   }
